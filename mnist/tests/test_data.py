@@ -1,11 +1,11 @@
 import unittest
-
 import torch
 from torchvision import transforms
 
 from mnist.src.data import MNISTDataset
 
 
+# Class in charge of testing
 class TestMNISTDataset(unittest.TestCase):
     def setUp(self):
         self.dataset = MNISTDataset(
