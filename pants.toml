@@ -4,6 +4,8 @@ backend_packages = [
     "pants.backend.python",
     "pants.backend.python.lint.docformatter",
     "pants.backend.python.lint.black",
+    "pants.backend.python.typecheck.mypy",
+    "pants.backend.docker",
 ]
 
 [source]
@@ -27,3 +29,18 @@ global_report = true
 
 [pytest]
 args = ["-vv", "-s", "-W ignore::DeprecationWarning", "--no-header"]
+
+[mypy]
+args = [
+    "--ignore-missing-imports",
+    "--local-partial-types",
+    "--pretty",
+    "--color-output",
+    "--error-summary",
+    "--show-error-codes",
+    "--show-error-context",
+]
+
+[docker]
+build_args = ["SHORT_SHA"]
+env_vars = ["DOCKER_CONFIG=%(env.HOME)s/.docker", "HOME", "USER", "PATH"]
