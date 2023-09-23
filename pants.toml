@@ -1,11 +1,18 @@
 [GLOBAL]
 pants_version = "2.15.1"
 backend_packages = [
-    "pants.backend.python"
+    "pants.backend.python",
+    "pants.backend.python.lint.docformatter",
+    "pants.backend.python.lint.black",
 ]
 
 [source]
 root_patterns = ["/"]
 
 [python]
-interpreter_constraints = ["==3.9*"]
+interpreter_constraints = ["==3.9.*"]
+enable_resolves = true
+default_resolve = "mnist"
+
+[python.resolves]
+mnist = "mnist/mnist.lock"
