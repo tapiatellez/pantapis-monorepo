@@ -1,5 +1,1 @@
-python_tests(
-    name="tests",
-    resolve="mnist",
-    sources=["test_*.py"]
-)
+python_tests(name="tests", resolve="mnist", sources=["test_*.py"])

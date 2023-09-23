@@ -1,5 +1,1 @@
-python_sources(
-    name="python",
-    resolve="mnist",
-    sources=["**/*.py"]
-)
+python_sources(name="python", resolve="mnist", sources=["**/*.py"])

@@ -1,5 +1,3 @@
-from pathlib import Path
-
 import torch
 import torch.nn as nn
 import torch.optim as optim
@@ -12,7 +10,6 @@ from mnist.src.config import Config
 
 
 if __name__ == "__main__":
-
     # Set device configuration
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 

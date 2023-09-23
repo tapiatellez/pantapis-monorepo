@@ -1,48 +1,37 @@
+# TODO. IN GENERAL INVESTIGATE WHAT IS A GOOD WAY TO SET UP THE PRECOMMITS
+default_stages: [pre-commit]
 repos:
-  - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v2.3.0
+  - repo: local
     hooks:
-      - id: check-yaml
-      - id: end-of-file-fixer
-      - id: trailing-whitespace
-  - repo: https://github.com/psf/black
-    rev: 22.10.0
-    hooks:
-      - id: black
-################################
+      - id: check-build-files
+        name: check-build-files
+        entry: bash -c "pants tailor --check update-build-files --check ::"
+        language: system
+        pass_filenames: false
+        stages: [pre-commit]
+      - id: check-code-format-and-style
+        name: check-code-format-and-style
+        entry: sh -c "pants lint ::"
+        language: system
+        pass_filenames: false
+        stages: [pre-commit]
 
-# #default_stages: [push]
-# default_language_version:
-#   python: python3.9
-# repos:
-#   - repo: local
-#     hooks:
-#       - id: check-build-files
-#         name: check-build-files
-#         entry: bash -c "pants tailor --check update-build-files --check ::"
-#         language: system
-#         pass_filenames: false
+      # TODO. CHECK BUG THAT DOES NOT ALLOW TO PERFORM THIS TASK
+      # - id: check-typing
+      #   name: check-typing
+      #   entry: sh -c "pants --changed-since=main --changed-dependees=transitive check"
+      #   language: system
+      #   pass_filenames: false
+      #   stages: [pre-commit]
 
-###############################
+      - id: run-tests
+        name: run-tests
+        entry: sh -c "pants test ::"
+        language: system
+        pass_filenames: false
+        stages: [pre-commit]
 
-# - id: check-code-format-and-style
-#   name: check-code-format-and-style
-#   entry: sh -c "pants lint ::"
-#   language: system
-#   pass_filenames: false
-
-# - id: check-typing
-#   name: check-typing
-#   entry: sh -c "pants --changed-since=main --changed-dependees=transitive check"
-#   language: system
-#   pass_filenames: false
-
-# - id: run-tests
-#   name: run-tests
-#   entry: sh -c "pants test ::"
-#   language: system
-#   pass_filenames: false
-
+      # TODO. ADD PUSH COMMITS FOR THE DOCKER FILES
 # # See https://pre-commit.com for more information
 # # See https://pre-commit.com/hooks.html for more hooks
 # exclude: scripts/templates/

@@ -1,8 +1,4 @@
-python_requirements(
-    name="reqs",
-    source="requirements.txt",
-    resolve="mnist"
-)
+python_requirements(name="reqs", source="requirements.txt", resolve="mnist")
 
 files(
     name="module_files",
