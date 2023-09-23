@@ -16,3 +16,14 @@ default_resolve = "mnist"
 
 [python.resolves]
 mnist = "mnist/mnist.lock"
+
+[test]
+output = "all"
+report = false
+use_coverage = true
+
+[coverage-py]
+global_report = true
+
+[pytest]
+args = ["-vv", "-s", "-W ignore::DeprecationWarning", "--no-header"]
