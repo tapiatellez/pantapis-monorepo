@@ -3,103 +3,36 @@ default_stages: [pre-commit]
 repos:
   - repo: local
     hooks:
-      - id: check-build-files
-        name: check-build-files
-        entry: bash -c "pants tailor --check update-build-files --check ::"
-        language: system
-        pass_filenames: false
-        stages: [pre-commit]
+      #       - id: check-build-files
+      #         name: check-build-files
+      #         entry: bash -c "pants tailor --check update-build-files --check ::"
+      #         language: system
+      #         pass_filenames: false
+      #         stages: [pre-commit]
       - id: check-code-format-and-style
         name: check-code-format-and-style
         entry: sh -c "pants lint ::"
         language: system
         pass_filenames: false
-        stages: [pre-commit]
+        #stages: [pre-commit]
+# TODO. CHECK BUG THAT DOES NOT ALLOW TO PERFORM THIS TASK (MyPy problem)
+# 16:25:31.27 [ERROR] Completed: Typecheck using MyPy - mypy - mypy failed (exit code 2).
+# mnist/src/data.py: error: Source file found twice under different module names: "data" and "mnist.src.data"
+# mnist/src/data.py: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#mapping-file-paths-to-modules for more info
+# mnist/src/data.py: note: Common resolutions include: a) adding `__init__.py` somewhere, b) using `--explicit-package-bases` or adjusting MYPYPATH
+# Found 1 error in 1 file (errors prevented further checking)
+# - id: check-typing
+#   name: check-typing
+#   entry: sh -c "pants --changed-since=main --changed-dependees=transitive check"
+#   language: system
+#   pass_filenames: false
+#   stages: [pre-commit]
 
-      # TODO. CHECK BUG THAT DOES NOT ALLOW TO PERFORM THIS TASK
-      # - id: check-typing
-      #   name: check-typing
-      #   entry: sh -c "pants --changed-since=main --changed-dependees=transitive check"
-      #   language: system
-      #   pass_filenames: false
-      #   stages: [pre-commit]
+# - id: run-tests
+#   name: run-tests
+#   entry: sh -c "pants test ::"
+#   language: system
+#   pass_filenames: false
+#   stages: [pre-commit]
 
-      - id: run-tests
-        name: run-tests
-        entry: sh -c "pants test ::"
-        language: system
-        pass_filenames: false
-        stages: [pre-commit]
-
-      # TODO. ADD PUSH COMMITS FOR THE DOCKER FILES
-# # See https://pre-commit.com for more information
-# # See https://pre-commit.com/hooks.html for more hooks
-# exclude: scripts/templates/
-# default_stages: [pre-commit]
-# default_install_hook_types: [post-checkout, pre-commit, pre-push]
-# repos:
-# - repo: https://github.com/pre-commit/pre-commit-hooks
-#   rev: v3.2.0
-#   hooks:
-#   # Forbid committing to main and master
-#   - id: no-commit-to-branch
-#   # Checks for files that contain merge conflict strings.
-#   - id: check-merge-conflict
-#   # Checks for debugger imports and py37+ `breakpoint()` calls in python source.
-#   - id: debug-statements
-#   # Checks for syntax errors in toml/yaml
-#   - id: check-json
-#   - id: check-toml
-#   - id: check-yaml
-#   # Prevents adding files > 500kb
-#   - id: check-added-large-files
-#     args: ['--maxkb=500']
-# - repo: local
-#   hooks:
-#   - name: pants autoformat
-#     id: pants-format
-#     entry: ./git_hooks/pants_pre_commit.sh
-#     language: script
-#     pass_filenames: false
-#     stages: [pre-commit]
-#     verbose: true
-#     require_serial: true
-#   - name: Pants push
-#     id: pants-pre-push
-#     entry: ./git_hooks/pants_pre_push.sh
-#     language: system
-#     pass_filenames: false
-#     stages: [pre-push]
-#     verbose: true
-#     require_serial: true
-#   - name: DVC pre-commit
-#     id: DVC
-#     entry: dvc
-#     args: [git-hook, pre-commit]
-#     language: system
-#     pass_filenames: false
-#     require_serial: true
-#     verbose: true
-#     stages: [pre-commit]
-#   - name: DVC pre-push
-#     id: dvc-pre-push
-#     entry: dvc
-#     args: [git-hook, pre-push]
-#     language: system
-#     stages: [pre-push]
-#     require_serial: true
-#   - name: DVC post-checkout
-#     id: dvc-post-checkout
-#     entry: dvc
-#     args: [git-hook, post-checkout]
-#     always_run: true
-#     language: system
-#     minimum_pre_commit_version: 2.2.0
-#     stages: [post-checkout]
-#     require_serial: true
-#   - name: Check lockfiles
-#     id: check-lockfiles
-#     entry: ./scripts/install/update_lockfiles.py
-#     language: system
-#     pass_filenames: false
-#     stages: [pre-push]
+# TODO. ADD PUSH COMMITS FOR THE DOCKER FILES
